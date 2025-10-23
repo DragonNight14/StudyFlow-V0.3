@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="StudyFlow">
+    <meta name="msapplication-TileColor" content="#667eea">
+    <meta name="msapplication-TileImage" content="icon-192x192.png">
+    <meta name="description" content="StudyFlow v0.2 - Advanced assignment tracking with Canvas integration and premium features">
+    <title>StudyFlow v0.2 - Advanced Assignment Tracker</title>
+    <link rel="manifest" href="config/manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192x192.png">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="icon-192x192.png">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/settings.css">
+    
+    <!-- Fallback styles in case external CSS doesn't load -->
+    <style>
+        /* Emergency fallback styles */
+        .create-assignment-btn {
+            position: fixed !important;
+            bottom: 90px !important;
+            right: 1rem !important;
+            width: 60px !important;
+            height: 60px !important;
+            background: #f59e0b !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            color: white !important;
+            font-size: 24px !important;
+            z-index: 9999 !important;
+            border: none !important;
+            cursor: pointer !important;
+        }
+        
+        .bottom-nav {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            height: 70px !important;
+            display: flex !important;
+            justify-content: space-around !important;
+            align-items: center !important;
+            z-index: 1000 !important;
+        }
+        
+        .nav-btn {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            padding: 8px !important;
+            background: none !important;
+            border: none !important;
+            cursor: pointer !important;
+        }
+        
+        .main-content {
+            padding-bottom: 90px !important;
+            min-height: 100vh !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>StudyFlow <span class="version-badge">v0.2</span></h1>
+        </header>
+
+        <main class="main-content">
+            <!-- Home View -->
+            <div class="content-view" id="home-view">
+                <!-- Statistics Dashboard -->
+                <div class="stats-dashboard">
+                    <div class="stat-card glass-card">
+                        <div class="stat-number" id="total-assignments">0</div>
+                        <div class="stat-label" data-translate="activeTasks">Active Tasks</div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-number" id="completed-count">0</div>
+                        <div class="stat-label" data-translate="completed">Completed</div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-number" id="overdue-count">0</div>
+                        <div class="stat-label" data-translate="overdue">Overdue</div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-number" id="streak-count">0</div>
+                        <div class="stat-label" data-translate="dayStreak">Day Streak</div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-container glass-card">
+                    <div class="progress-label">
+                        <span data-translate="overallProgress">Overall Progress</span>
+                        <span id="progress-percentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+
+                <!-- High Priority Section -->
+                <section class="priority-section" id="high-priority">
+                    <h2 data-translate="highPriority">🔥 High Priority</h2>
+                    <p class="section-subtitle" data-translate="highPrioritySubtitle">Due within 4 days - Handle these first!</p>
+                    <div class="assignments-container" id="high-priority-assignments">
+                        <div class="empty-state" data-translate="noUrgentAssignments">No urgent assignments right now 🎉</div>
+                    </div>
+                </section>
+
+                <!-- Coming Up Section -->
+                <section class="priority-section" id="coming-up">
+                    <h2 data-translate="comingUp">⏰ Coming Up</h2>
+                    <p class="section-subtitle" data-translate="comingUpSubtitle">Due within 1.5 weeks - Plan ahead</p>
+                    <div class="assignments-container" id="coming-up-assignments">
+                        <div class="empty-state" data-translate="noUpcomingAssignments">No upcoming assignments</div>
+                    </div>
+                </section>
+
+                <!-- Worry About Later Section -->
+                <section class="priority-section" id="worry-later">
+                    <h2 data-translate="worryLater">📅 Worry About Later</h2>
+                    <p class="section-subtitle" data-translate="worryLaterSubtitle">Due in 3+ weeks - Future planning</p>
+                    <div class="assignments-container" id="worry-later-assignments">
+                        <div class="empty-state" data-translate="noLongTermAssignments">No long-term assignments</div>
+                    </div>
+                </section>
+
+                <!-- Completed Section (Hidden by default, shown when there are completed items) -->
+                <section class="priority-section hidden" id="completed">
+                    <h2 data-translate="completedSection">✅ Completed</h2>
+                    <p class="section-subtitle" data-translate="completedSubtitle">Great job! Keep up the momentum</p>
+                    <div class="assignments-container" id="completed-assignments">
+                    </div>
+                </section>
+            </div>
+
+            <!-- All Assignments View -->
+            <div class="content-view hidden" id="all-view">
+                <section class="priority-section">
+                    <h2>📋 All Assignments</h2>
+                    
+                    <!-- Search and Filter Controls -->
+                    <div class="search-filter-container">
+                        <div class="search-box">
+                            <input type="text" id="assignment-search" placeholder="Search assignments..." />
+                        </div>
+                        <div class="filter-controls">
+                            <select id="status-filter" aria-label="Filter by status">
+                                <option value="all">All Status</option>
+                                <option value="pending">Pending</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                            <select id="source-filter" aria-label="Filter by source">
+                                <option value="all">All Sources</option>
+                                <option value="manual">Manual</option>
+                                <option value="canvas">Canvas LMS</option>
+                                <option value="google">Google Classroom</option>
+                            </select>
+                            <select id="priority-filter" aria-label="Filter by priority">
+                                <option value="all">All Priorities</option>
+                                <option value="high">High Priority</option>
+                                <option value="medium">Medium Priority</option>
+                                <option value="low">Low Priority</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="assignments-container" id="all-assignments">
+                        <!-- All assignments will be shown here -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Calendar View -->
+            <div class="content-view hidden" id="calendar-view">
+                <section class="priority-section">
+                    <h2>📅 Calendar</h2>
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <button class="calendar-nav-btn" id="prev-month" aria-label="Previous month">‹</button>
+                            <h3 class="calendar-month-year" id="calendar-month-year"></h3>
+                            <button class="calendar-nav-btn" id="next-month" aria-label="Next month">›</button>
+                        </div>
+                        <div class="calendar-grid" id="calendar-grid">
+                            <!-- Calendar will be dynamically generated here -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Settings View -->
+            <div class="content-view hidden" id="settings-view">
+                <div id="settings-content">
+                    <!-- Settings content will be dynamically added here -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" id="home-btn">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label" data-translate="home">Home</span>
+            </button>
+            <button class="nav-btn" id="all-assignments-btn">
+                <span class="nav-icon">📋</span>
+                <span class="nav-label" data-translate="allAssignments">All</span>
+            </button>
+            <button class="nav-btn" id="calendar-btn">
+                <span class="nav-icon">📅</span>
+                <span class="nav-label" data-translate="calendar">Calendar</span>
+            </button>
+            <button class="nav-btn" id="settings-btn">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label" data-translate="settings">Settings</span>
+            </button>
+        </nav>
+
+        <!-- Create Assignment Button -->
+        <button class="create-assignment-btn" id="create-assignment-btn">
+            <span class="create-icon">📝</span>
+            <span class="create-text" data-translate="create">Create</span>
+        </button>
+
+        <!-- Quick Background Selector -->
+        <button class="quick-bg-btn" id="quick-bg-btn">
+            <span class="bg-icon">🎨</span>
+        </button>
+
+        <!-- Quick Background Menu -->
+        <div class="quick-bg-menu hidden" id="quick-bg-menu">
+            <div class="quick-bg-content glass-card">
+                <h4>Quick Backgrounds</h4>
+                <div class="bg-options">
+                    <button class="bg-option" data-type="gradient" data-colors="#667eea,#764ba2">
+                        <div class="bg-preview bg-preview-default"></div>
+                        <span>Default</span>
+                    </button>
+                    <button class="bg-option" data-type="gradient" data-colors="#ff6b6b,#feca57">
+                        <div class="bg-preview bg-preview-sunset"></div>
+                        <span>Sunset</span>
+                    </button>
+                    <button class="bg-option" data-type="gradient" data-colors="#48cae4,#023e8a">
+                        <div class="bg-preview bg-preview-ocean"></div>
+                        <span>Ocean</span>
+                    </button>
+                    <button class="bg-option" data-type="gradient" data-colors="#a8e6cf,#2d5016">
+                        <div class="bg-preview bg-preview-forest"></div>
+                        <span>Forest</span>
+                    </button>
+                    <button class="bg-option" data-type="gradient" data-colors="#ff9a9e,#fecfef">
+                        <div class="bg-preview bg-preview-rose"></div>
+                        <span>Rose</span>
+                    </button>
+                    <button class="bg-option" data-type="gradient" data-colors="#1a1a2e,#16213e">
+                        <div class="bg-preview bg-preview-dark"></div>
+                        <span>Dark</span>
+                    </button>
+                    <button class="bg-option" data-type="solid" data-color="#2d3748">
+                        <div class="bg-preview bg-preview-solid-dark"></div>
+                        <span>Solid Dark</span>
+                    </button>
+                    <button class="bg-option" data-type="solid" data-color="#f7fafc">
+                        <div class="bg-preview bg-preview-solid-light"></div>
+                        <span>Solid Light</span>
+                    </button>
+                </div>
+                <div class="bg-actions">
+                    <button class="btn btn-secondary" onclick="document.getElementById('quick-bg-menu').style.display='none'">Close</button>
+                    <button class="btn btn-primary" onclick="document.getElementById('settings-btn').click()">More Options</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Load unified app logic -->
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build outputs
+build/
+dist/
+www/
+android/
+ios/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Capacitor
+capacitor.config.json
+
+# APK build artifacts
+*.apk
+*.aab
+*.keystore
+
+# Large media files (optional - uncomment if you want to exclude)
+# *.mp4
+# *.webm
+# *.mov
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+.cache/
+.temp/
+
+# Local development
+.local-storage/
+user-data/
+backups/
+exports/
