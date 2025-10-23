@@ -2509,7 +2509,7 @@ html {
     padding: 8px 0;
   }
 
-  .nav-item {
+  .nav-btn {
     padding: 8px 12px;
     min-height: 48px;
   }
@@ -2630,7 +2630,7 @@ html {
     height: 60px;
   }
 
-  .nav-item {
+  .nav-btn {
     font-size: 0.7rem;
     padding: 6px 8px;
   }
@@ -2669,22 +2669,23 @@ html {
 
   /* Smooth scrolling for Android */
   * {
-    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
   }
 
   /* Remove tap highlight color */
   * {
     -webkit-tap-highlight-color: transparent;
   }
-
   /* Better touch scrolling */
   .assignments-container,
   .calendar-view,
   .settings-view,
   .stats-view {
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
+    scroll-behavior: smooth;
+  }
   }
 
   /* Safe area insets for notched devices */
@@ -2708,7 +2709,7 @@ html {
   /* Optimized animations for 60fps on mobile */
   .assignment-card,
   .action-btn,
-  .nav-item {
+  .nav-btn {
     will-change: transform;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
@@ -2844,19 +2845,25 @@ html {
   .bottom-nav {
     height: 70px;
     padding: 10px 0;
-    max-width: 600px;
-    margin: 0 auto;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 20px 20px 0 0;
   }
 
-  .nav-item {
+  /* Only center on tablet, not mobile */
+  @supports (max-width: 1024px) {
+    .bottom-nav {
+      max-width: 600px;
+      margin: 0 auto;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 20px 20px 0 0;
+    }
+  }
+
+  .nav-btn {
     padding: 10px 20px;
     font-size: 0.9rem;
   }
 
-  .nav-item i {
+  .nav-icon {
     font-size: 1.5rem;
   }
 
@@ -2998,11 +3005,21 @@ html {
 
   /* Navigation bar sleeker */
   .bottom-nav {
-    max-width: 700px;
     height: 75px;
   }
 
-  .nav-item {
+  /* Only center and style on large tablets */
+  @supports (min-width: 1025px) {
+    .bottom-nav {
+      max-width: 700px;
+      margin: 0 auto;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 20px 20px 0 0;
+    }
+  }
+
+  .nav-btn {
     padding: 12px 24px;
     font-size: 1rem;
   }
@@ -3086,7 +3103,7 @@ html {
 @media (hover: none) and (pointer: coarse) {
   .assignment-card:hover,
   .action-btn:hover,
-  .nav-item:hover,
+  .nav-btn:hover,
   button:hover {
     transform: none;
   }
@@ -3094,7 +3111,7 @@ html {
   /* Use active states instead */
   .assignment-card:active,
   .action-btn:active,
-  .nav-item:active,
+  .nav-btn:active,
   button:active {
     transform: scale(0.98);
     opacity: 0.9;
