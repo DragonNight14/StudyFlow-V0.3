@@ -5,6 +5,16 @@
 .active {
   display: block !important;
 }
+
+/* Ensure only one view is visible at a time */
+.content-view {
+  display: none;
+}
+
+.content-view.active {
+  display: block;
+}
+
 /* Glassmorphic Assignment Tracker Styles */
 :root {
   --primary-color: #667eea;
