@@ -1854,12 +1854,6 @@ class EnhancedAssignmentTracker {
             this.switchToView('all-view');
         });
 
-        document.getElementById('classes-btn')?.addEventListener('click', () => {
-            this.setActiveNav('classes-btn');
-            this.switchToView('classes-view');
-            this.renderClasses();
-        });
-
         document.getElementById('calendar-btn')?.addEventListener('click', () => {
             this.setActiveNav('calendar-btn');
             this.switchToView('calendar-view');
@@ -1951,8 +1945,6 @@ class EnhancedAssignmentTracker {
             this.renderAssignments();
         } else if (viewId === 'all-view') {
             this.renderAllAssignments();
-        } else if (viewId === 'classes-view') {
-            this.renderClasses();
         } else if (viewId === 'calendar-view') {
             this.renderCalendar();
         }
@@ -1965,10 +1957,6 @@ class EnhancedAssignmentTracker {
                 break;
             case 'all':
                 this.switchToView('all-view');
-                break;
-            case 'classes':
-                this.switchToView('classes-view');
-                this.renderClasses();
                 break;
             case 'calendar':
                 this.switchToView('calendar-view');
@@ -2631,7 +2619,7 @@ class EnhancedAssignmentTracker {
 
     // Classes functionality
     initializeClasses() {
-        this.renderClasses();
+        // this.renderClasses(); // WIP - Classes feature not yet implemented
     }
 
     getClasses() {
@@ -3081,7 +3069,7 @@ class EnhancedAssignmentTracker {
         if (confirm('Are you sure you want to delete this class?')) {
             this.classes = this.classes.filter(c => c.id !== classId);
             this.saveClasses();
-            this.renderClasses();
+            // this.renderClasses(); // WIP - Classes feature not yet implemented
             this.showNotification('Class deleted successfully', 'success');
         }
     }
@@ -3237,7 +3225,7 @@ class EnhancedAssignmentTracker {
                 
                 // Refresh classes view if we're on that page
                 if (this.currentView === 'classes') {
-                    this.renderClasses();
+                    // this.renderClasses(); // WIP - Classes feature not yet implemented
                 }
             }
         } catch (error) {
