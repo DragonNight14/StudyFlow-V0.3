@@ -2447,3 +2447,656 @@ html {
     padding: 1rem;
   }
 }
+
+/* ========================================
+   MOBILE ANDROID OPTIMIZATIONS
+   ======================================== */
+
+/* Touch-friendly tap targets (min 48x48px recommended by Material Design) */
+@media (max-width: 768px) {
+  /* Make all interactive elements touch-friendly */
+  button,
+  .btn,
+  .action-btn,
+  input[type="checkbox"],
+  input[type="radio"],
+  select {
+    min-width: 44px;
+    min-height: 44px;
+    touch-action: manipulation; /* Prevents double-tap zoom */
+  }
+
+  /* Larger action buttons for easier tapping */
+  .action-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  /* Checkbox with larger hit area */
+  .assignment-checkbox-wrapper {
+    padding: 8px;
+    margin: -8px;
+  }
+
+  .assignment-checkbox {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Improved spacing for assignment cards */
+  .assignment-card {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+    min-height: 72px; /* Touch-friendly height */
+  }
+
+  /* Better typography for mobile readability */
+  .assignment-title {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .assignment-description {
+    font-size: 0.875rem;
+    line-height: 1.4;
+    -webkit-line-clamp: 2; /* Show 2 lines on mobile */
+  }
+
+  /* Navigation optimized for thumb reach */
+  .bottom-nav {
+    height: 64px; /* Slightly taller for easier tapping */
+    padding: 8px 0;
+  }
+
+  .nav-item {
+    padding: 8px 12px;
+    min-height: 48px;
+  }
+
+  /* Settings page mobile optimization */
+  .settings-section {
+    padding: 1rem 0.75rem;
+  }
+
+  .setting-item {
+    padding: 1rem 0.75rem;
+    min-height: 60px;
+  }
+
+  /* Modal improvements for mobile */
+  .modal-overlay {
+    padding: 1rem 0.5rem;
+  }
+
+  .assignment-info-card,
+  .delete-confirmation-card,
+  .create-assignment-overlay {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border-radius: 16px 16px 0 0; /* Bottom sheet style */
+    max-height: 85vh;
+  }
+
+  /* Form inputs mobile-friendly */
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  textarea,
+  select {
+    font-size: 16px; /* Prevents zoom on iOS/Android */
+    min-height: 48px;
+    padding: 12px 16px;
+  }
+
+  textarea {
+    min-height: 120px;
+  }
+
+  /* Quick background menu adjustment */
+  .quick-bg-menu {
+    right: 0.5rem;
+    bottom: 4.5rem;
+  }
+
+  .quick-bg-content {
+    max-width: calc(100vw - 2rem);
+  }
+
+  /* Calendar optimizations */
+  .calendar-grid {
+    gap: 4px;
+  }
+
+  .calendar-day {
+    min-height: 48px;
+    padding: 8px 4px;
+    font-size: 0.875rem;
+  }
+
+  /* Stats cards mobile layout */
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  /* Subject filter chips */
+  .filter-chip {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    min-height: 40px;
+  }
+
+  /* Color picker touch-friendly */
+  .color-option {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* Priority selector */
+  .priority-btn {
+    padding: 10px 16px;
+    font-size: 0.875rem;
+    min-height: 44px;
+  }
+}
+
+/* Small mobile devices (< 375px) */
+@media (max-width: 374px) {
+  .assignment-card {
+    padding: 0.5rem;
+  }
+
+  .action-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+
+  .assignment-title {
+    font-size: 0.9rem;
+  }
+
+  .assignment-description {
+    font-size: 0.8rem;
+  }
+
+  .bottom-nav {
+    height: 60px;
+  }
+
+  .nav-item {
+    font-size: 0.7rem;
+    padding: 6px 8px;
+  }
+}
+
+/* Landscape mobile orientation */
+@media (max-width: 768px) and (orientation: landscape) {
+  .modal-overlay {
+    overflow-y: auto;
+  }
+
+  .assignment-info-card,
+  .delete-confirmation-card,
+  .create-assignment-overlay {
+    max-height: 75vh;
+    border-radius: 16px;
+  }
+
+  .bottom-nav {
+    height: 56px;
+  }
+}
+
+/* Android-specific optimizations */
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari detection - NOT Android */
+}
+
+/* Android Chrome optimizations */
+@media (max-width: 768px) {
+  /* Prevent text size adjustment on orientation change */
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Smooth scrolling for Android */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Remove tap highlight color */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Better touch scrolling */
+  .assignments-container,
+  .calendar-view,
+  .settings-view,
+  .stats-view {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Safe area insets for notched devices */
+  .app-container {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  /* Bottom navigation with safe area */
+  .bottom-nav {
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
+  }
+
+  /* Prevent pull-to-refresh interference */
+  body {
+    overscroll-behavior-y: contain;
+  }
+
+  /* Optimized animations for 60fps on mobile */
+  .assignment-card,
+  .action-btn,
+  .nav-item {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  /* Reduce motion for battery saving */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Dark mode support for Android */
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme]) {
+      --glass-bg: rgba(0, 0, 0, 0.3);
+      --glass-border: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  /* High contrast mode */
+  @media (prefers-contrast: high) {
+    .assignment-card,
+    .modal-overlay,
+    button {
+      border-width: 2px;
+    }
+  }
+}
+
+/* ========================================
+   TABLET OPTIMIZATIONS (768px - 1024px)
+   ======================================== */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Container optimization for tablet width */
+  .app-container {
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+
+  /* Two-column assignment grid for tablets */
+  .assignments-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .assignment-card {
+    padding: 1rem;
+    min-height: 120px;
+  }
+
+  /* Larger text for better readability */
+  .assignment-title {
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+
+  .assignment-description {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    -webkit-line-clamp: 2;
+  }
+
+  /* Action buttons optimized for tablet */
+  .action-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 15px;
+  }
+
+  /* Stats grid in 2 columns */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .stat-card {
+    padding: 1.5rem;
+  }
+
+  /* Calendar with better spacing */
+  .calendar-grid {
+    gap: 8px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .calendar-day {
+    min-height: 60px;
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  /* Modals take advantage of tablet width */
+  .assignment-info-card,
+  .delete-confirmation-card,
+  .create-assignment-overlay {
+    width: 85%;
+    max-width: 600px;
+    border-radius: 20px;
+  }
+
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* Settings in two columns for efficiency */
+  .settings-section {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+
+  /* Form inputs comfortable size */
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  textarea,
+  select {
+    font-size: 1rem;
+    padding: 14px 18px;
+  }
+
+  /* Bottom navigation with better spacing */
+  .bottom-nav {
+    height: 70px;
+    padding: 10px 0;
+    max-width: 600px;
+    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px 20px 0 0;
+  }
+
+  .nav-item {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .nav-item i {
+    font-size: 1.5rem;
+  }
+
+  /* Quick background menu repositioned */
+  .quick-bg-menu {
+    right: 1.5rem;
+    bottom: 6rem;
+  }
+
+  .quick-bg-content {
+    min-width: 300px;
+  }
+
+  /* Subject filters horizontal scroll */
+  .subjects-filter {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding: 0.5rem 0;
+    scrollbar-width: thin;
+  }
+
+  .filter-chip {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+
+  /* Color options grid */
+  .color-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 12px;
+  }
+
+  .color-option {
+    width: 60px;
+    height: 60px;
+  }
+
+  /* Priority buttons comfortable spacing */
+  .priority-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .priority-btn {
+    padding: 14px 20px;
+    font-size: 1rem;
+    min-height: 50px;
+  }
+
+  /* Better touch targets still important */
+  button,
+  .btn,
+  .action-btn,
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Header elements */
+  .view-header {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .view-title {
+    font-size: 2rem;
+  }
+
+  /* Create button prominent position */
+  .create-assignment-btn {
+    width: 64px;
+    height: 64px;
+    font-size: 1.75rem;
+    right: 2rem;
+    bottom: 7rem;
+  }
+}
+
+/* Large tablets and iPad Pro (1024px+) */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  /* Three-column layout for assignments */
+  .assignments-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    padding: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Stats in 4 columns */
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Calendar full width with better spacing */
+  .calendar-grid {
+    max-width: 900px;
+    gap: 10px;
+  }
+
+  .calendar-day {
+    min-height: 70px;
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  /* Modals centered with comfortable width */
+  .assignment-info-card,
+  .delete-confirmation-card,
+  .create-assignment-overlay {
+    width: 70%;
+    max-width: 700px;
+  }
+
+  .info-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  /* Settings wider for better layout */
+  .settings-section {
+    max-width: 900px;
+  }
+
+  /* Background options in grid */
+  .bg-options {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+  }
+
+  /* Navigation bar sleeker */
+  .bottom-nav {
+    max-width: 700px;
+    height: 75px;
+  }
+
+  .nav-item {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+
+  /* Larger create button */
+  .create-assignment-btn {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+    right: 2.5rem;
+    bottom: 8rem;
+  }
+
+  /* Form fields spacious */
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  textarea,
+  select {
+    font-size: 1.05rem;
+    padding: 16px 20px;
+  }
+
+  textarea {
+    min-height: 150px;
+  }
+
+  /* Priority selector full width */
+  .priority-selector {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .priority-btn {
+    padding: 16px 24px;
+    font-size: 1.05rem;
+    min-height: 56px;
+  }
+}
+
+/* Tablet landscape orientation */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+  /* Optimize for landscape viewing */
+  .app-container {
+    padding: 1rem 2rem;
+  }
+
+  .assignments-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .bottom-nav {
+    max-width: 800px;
+  }
+
+  /* Modals take less vertical space */
+  .assignment-info-card,
+  .delete-confirmation-card,
+  .create-assignment-overlay {
+    max-height: 80vh;
+  }
+}
+
+/* iPad Pro specific (1024x1366) */
+@media (min-width: 1024px) and (max-width: 1366px) and (orientation: portrait) {
+  .assignments-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .assignment-card {
+    padding: 1.25rem;
+  }
+
+  .calendar-grid {
+    max-width: 800px;
+  }
+}
+
+/* Prevent hover effects on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .assignment-card:hover,
+  .action-btn:hover,
+  .nav-item:hover,
+  button:hover {
+    transform: none;
+  }
+
+  /* Use active states instead */
+  .assignment-card:active,
+  .action-btn:active,
+  .nav-item:active,
+  button:active {
+    transform: scale(0.98);
+    opacity: 0.9;
+  }
+}
