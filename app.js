@@ -3527,46 +3527,4 @@ class EnhancedAssignmentTracker {
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize the main tracker application
     window.tracker = new EnhancedAssignmentTracker();
-    
-    // Setup Quick Background Selector
-    const quickBgBtn = document.getElementById('quick-bg-btn');
-    const quickBgMenu = document.getElementById('quick-bg-menu');
-    
-    if (quickBgBtn && quickBgMenu) {
-        quickBgBtn.addEventListener('click', () => {
-            quickBgMenu.classList.toggle('hidden');
-        });
-        
-        // Handle background option clicks
-        document.querySelectorAll('.bg-option').forEach(option => {
-            option.addEventListener('click', () => {
-                const type = option.dataset.type;
-                
-                if (type === 'gradient') {
-                    const colors = option.dataset.colors.split(',');
-                    document.documentElement.style.setProperty('--primary-color', colors[0]);
-                    document.documentElement.style.setProperty('--secondary-color', colors[1]);
-                    localStorage.setItem('gradient-color-1', colors[0]);
-                    localStorage.setItem('gradient-color-2', colors[1]);
-                    localStorage.setItem('background-type', 'gradient');
-                    window.tracker.backgroundManager.applyGradientBackground();
-                } else if (type === 'solid') {
-                    const color = option.dataset.color;
-                    localStorage.setItem('background-solid-color', color);
-                    localStorage.setItem('background-type', 'solid');
-                    document.body.style.background = color;
-                }
-                
-                window.tracker.showNotification('Background applied!', 'success');
-                quickBgMenu.classList.add('hidden');
-            });
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!quickBgBtn.contains(e.target) && !quickBgMenu.contains(e.target)) {
-                quickBgMenu.classList.add('hidden');
-            }
-        });
-    }
 });
